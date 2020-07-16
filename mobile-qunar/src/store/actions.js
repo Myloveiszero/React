@@ -7,9 +7,20 @@ export function setFrom(from) {
         payload: from,
     }
 }
+
 export function setTo(to) {
     return {
         type: ACTION_SET_TO,
         payload: to,
     }
 }
+
+export function exchangeFromTo(){
+    // 两个action 都要调用
+    // payload
+    return (dispatch, getState) => {
+        const {from, to} = getState()
+        dispatch(setFrom(to))
+        dispatch(setTo(from))
+    }
+};

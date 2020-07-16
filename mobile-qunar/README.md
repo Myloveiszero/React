@@ -2,7 +2,7 @@
         normalize.css
         index.css 移动业务的设置
 
-2.  无状态组件的创造流程  需要可以练习
+2.  无状态组件的创造流程  需要刻意练习
     -   组件插入父级组件之中，思考好props
     -   组件的类型如果是无状态组件
         prop-types css propTypes
@@ -46,4 +46,26 @@
         3.  状态组件，无状态组件的复用
         
     -   reducer
+        1.  action 标准做法
+            -   返回 {type: , payload:} 更新reducer状态
+            -   组件里的事件，生命周期等功能 主要是和数据状态打交道 归为action 来做
+            -   所有的action export function 在组件里引入需要的actions
+            -   bindActionCreateors 把 action 变成本地调用的函数 dispatch
+            -   useMemo 缓存这个函数
+            -   connect 中去第二个参数返回 action
+
+    -   action 
+        from 南昌
+        to 广州
+        两个action 思想的切换
+        紧盯修改的本质 redux
+
+    -   from to 的复盘
+        1.  redux 是一种编程思想 
+            -   它使用reducers纯函数 负责返回状态及状态的修改，在那一刻只有一个状态与之对应， switch case
+            -   actions actionsTypes 是更新reducer的使者，dispatch action
+            from to 都有独立的reducer函数和action
+            -   exchangeFromTo()
+                dispatch getState
+
 
