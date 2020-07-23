@@ -1,6 +1,6 @@
 import { observable, action } from 'mobx';
 class Auth {
-    @observable isLogin = false;
+    @observable isLogin = true;
 
     @action
     login() {

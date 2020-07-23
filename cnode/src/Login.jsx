@@ -1,5 +1,12 @@
-import React from 'react';
-function Collect() {
-  return 'Collect'
+import React, { Component } from 'react';
+
+class Login extends Component {
+    state = {  }
+    render() { 
+        return ( 
+            <> Login </>
+         );
+    }
 }
-export default Collect
+ 
+export default Login;
