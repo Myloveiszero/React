@@ -25,3 +25,17 @@ export function setCityData(cityData) {
         payload: cityData
     }
 }
+
+export function showCitySelector(isCitySelectorVisible) {
+    return {
+        type: ACTION_SET_IS_CITY_SELECTOR_VISIBLE,
+        payload: !isCitySelectorVisible,
+    }
+}
+
+export function showLoadingCityData(isLoadingCityData) {
+    return {
+        type: ACTION_SET_IS_LOADING_CITY_DATA,
+        payload: !isLoadingCityData,
+    }
+}
