@@ -5,13 +5,11 @@
 // 嵌套
 import React, { lazy, Suspense } from 'react';
 import { Redirect } from 'react-router-dom';
-// import Recommend from '../application/Recommend/';
 import BlankLayout from '../layouts/BlankLayout';
 import HomeLayout from '../layouts/HomeLayout';
-
-const RecommendComponent = lazy(() => import('../application/Recommend/'));
-const SingersComponent = lazy(() => import('../application/Singers/'));
-const RankComponent = lazy(() => import('../application/Rank/'));
+// import Recommend from '../application/Recommend/';
+const RecommendComponent = lazy(() => import("../application/Recommend/"))
+const SingersComponent = lazy(() => import("../application/Singers/"))
 
 const SuspenseComponent = Component => props => {
   return (
@@ -20,7 +18,7 @@ const SuspenseComponent = Component => props => {
       </Component>
     </Suspense>
   )
-} 
+}
 
 export default [{
   component: BlankLayout,
@@ -41,12 +39,12 @@ export default [{
         {
           path: '/singers',
           component: SuspenseComponent(SingersComponent),
-          key: 'singers'
+          key: "singers"
         },
-        {
-          path: '/rank',
-          component: SuspenseComponent(RankComponent)
-        },
+        // {
+        //   path: '/rank',
+        //   component: RankComponent
+        // },
       ]
     }
   ]

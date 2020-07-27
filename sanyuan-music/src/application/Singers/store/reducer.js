@@ -1,14 +1,14 @@
 const defaultState = {
-    category: "",
-    alpha: "",
-    singerList: [],
-    enterLoading: true,
-    listOffset: 0
+  category: "",
+  alpha: "",
+  singerList: [],
+  enterLoading:true,
+  listOffset: 0
 }
 
-export default(state = defaultState, action) => {
-    switch(action.types) {
-        default:
-            return state;
-    }
+export default (state = defaultState, action) => {
+  switch(action.type) {
+    default:
+      return state;
+  }
 }
