@@ -1,93 +1,123 @@
-import React, { useState, useEffect } from 'react';
-
-export const MyComponent = () => {
-    const [visible, setVisible] = useState(false);
-
-    return (
-        <>
-            {visible && <MyChildComponent />}
-            <button onClick={() => setVisible(!visible)}>
-                Toggle Child component visible
-            </button>
-        </>
-    )
-}
-
-const MyChildComponent = () => {
-    const [userInfo, setUserInfo] = useState({
-        name: "Jhon",
-        lastname: "Deo"
-    })
-    useEffect(() => {
-        console.log("called the component is mounted")
-        return () => {
-            console.log("called on component unmounted,check the [] on the react useEffect")
-        }
-    })
-    return (
-        <>
-            <h3>{userInfo.name}{userInfo.lastname}</h3>
-            <input type="text"
-                value={userInfo.name}
-                onChange={(e) => setUserInfo({...userInfo,name: e.target.value})}
-            />
-             <input type="text"
-                value={userInfo.lastname}
-                onChange={(e) => setUserInfo({...userInfo,lastname: e.target.value})}
-            />
-        </>
-    )
-}
+// import React, { useState, useEffect, useRef } from 'react';
 
 // export const MyComponent = () => {
-//     const [username, setUserName] = useState("");
+//     const [message, setMessage] = useState("inital, message");
+//     const [seconds, setSeconds] = useState(0);
+//     const secondsRef = useRef(seconds);
+
 //     useEffect(() => {
 //         setTimeout(() => {
-//             setUserName("堃堃")
-//         },1500)     
+//             console.log(seconds);
+//             setSeconds(1);
+//             secondsRef.current = 1;
+//         }, 1000);
+
+//         setTimeout(() => {
+//             setMessage(`Total seconds: ${secondsRef.current}`);
+//         }, 2000);
 //     }, [])
+
 //     return (
 //         <>
-//             <h4>{username}</h4>
-//             <input type="text"
-//                 value={username}
-//                 onChange={(e) => setUserName(e.target.value)}
-//             />
+//             <h3>{message}</h3>
+//             <h4>{seconds}</h4>
 //         </>
 //     )
 // }
 
 
-// export const MyComponent = props => {
+                                                     /* */
+// import React, { useCallback } from 'react';
 
-//     const [userInfo, setUserInfo] = useState({
-//         name: "John",
-//         lastname: "Doe"
-//     });
+// export const MyComponent = () => {
+//     const [visible, setVisible] = React.useState(false);
+
 //     return (
 //         <>
-//             <h4>{userInfo.name}{userInfo.lastname}</h4>
-//             <input type="text"
-//                 value={userInfo.name}
-//                 onChange={(e) => setUserInfo({...userInfo,name: e.target.value}) }
-//             />
-//             <input type="text"
-//                 value={userInfo.lastname}
-//                 onChange={(e) => setUserInfo({...userInfo,lastname: e.target.value}) }
-//             />
+//             {visible && <MyChlidComponent />}
+//             <button onClick={() => setVisible(!visible)}>Toggle Clid component visiblity</button>
 //         </>
 //     )
 // }
 
-
-// export const MyComponent = props => {
-
-//     const [myName, setMyName] = React.useState("John Doe")
+// export const MyChlidComponent = () => {
+//     const [filter, setFilter] = React.useState("");
+//     const [userCollection, setuserCollection] = React.useState([]);
+//     const mountedRef = React.useRef(false);
+   
+//     React.useEffect(() => {
+//         mountedRef.current = true;
+//         return () => (mountedRef.current = false);
+//     })
+//     const setuserCollection = userCollection => mountedRef.current && setuserCollection(userCollection);
+//     React.useEffect(() => {
+//         setTimeout(() => {
+//             fetch(`https://jsonplaceholder.typicode.com/users?name_like=${filter}`)
+//             .then(response => response.json())
+//             .then(json => setuserCollection(json))
+//         }, 2500);
+//     },[filter]);
 
 //     return (
-//         <>
-//           <h4>{myName}</h4>  
-//           <input type="text" value={myName} onChange={ (e) => setMyName(e.target.value)} />
-//         </>
+//         <div>
+//       <input type="text" value={filter} 
+//       onChange={e => setFilter(e.target.value)}
+//       />
+//       <ul>
+//         {
+//           userCollection.map((user, index) => (
+//             <li key={index}>{user.name}</li>
+//           ))
+//         }
+//       </ul>
+//     </div>
 //     )
 // }
+
+import React from 'react';
+
+const userInfoReducer = (state, action) => {
+    switch(action.type ) {
+        case "setusername":
+            return {
+                ...state,
+                name: action.payload
+            }
+        case "setlastname": 
+            return {
+                ...state,
+                lastname: action.payload
+            }
+        default:
+            return state;
+    }
+}
+
+export const MyComponent = () => {
+
+    const [reducer, dispatch] = React.useReducer(userInfoReducer, {
+        name: "John",
+        lastname: "Doe"
+    })
+
+    return (
+        <>
+            <h3>{reducer.name}{reducer.lastname}</h3>
+            <EditUsername value={reducer.name} dispatch={dispatch}/>
+            <input type="text" value={reducer.lastname} onChange={e => dispatch({
+                type: "setlastname",
+                payload: e.target.value
+            })}/>
+        </>
+    )
+}
+
+export const EditUsername = React.memo(props => {
+    console.log("Hey I'm only rerendered when name gets ")
+    return (
+        <input type="text" value={props.name} onChange={e => props.dispatch({
+            type: "setusername",
+            payload: e.target.value
+        })}/>
+    )
+})
