@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="push">push</div>
+    <div id="go">go</div>
+    <div id="back">back</div>
+    <script>
+        const push = document.getElementById('push');
+        const go = document.getElementById('go');
+        const back = document.getElementById('back');
+        console.log(history.length)
+        push.onclick = function() {
+            const state = { 'page_id': 1, 'user_id':  5 }
+            const title = ''
+            const url = '/push1'
+            history.pushState(state, title,url)
+            console.log(history.length)
+            history.replaceState(null, null, '/history.html')
+            console.log(history.length)
+            console.log(history.state)
+        }
+        go.onclick = function() {
+            history.go(1)
+        }
+        back.onclick = function() {
+            history.back()
+        }
+    </script>
+</body>
+</html>
